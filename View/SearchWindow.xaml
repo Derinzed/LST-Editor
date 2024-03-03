@@ -1,0 +1,68 @@
+﻿<Window x:Class="LST_Editor.SearchWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LST_Editor"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Search" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="HelperTextDirectory" TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <Style.Resources>
+                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                    <VisualBrush.Visual>
+                        <Label Content="Directory" Foreground="LightGray" />
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}" />
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}" />
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HelperTextSearch" TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <Style.Resources>
+                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                    <VisualBrush.Visual>
+                        <Label Content="Search For" Foreground="LightGray" />
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}" />
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}" />
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Name="SearchGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="19*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="SearchDirectory" Margin="33,47,114,0" TextWrapping="Wrap" Text="{Binding SearchData.GlobalDirectory}" VerticalAlignment="Top" Height="18" Style="{DynamicResource HelperTextDirectory}"/>
+        <Button x:Name="SearchPath" Content="Search Path" Click="Search_Path" HorizontalAlignment="Left" Margin="33,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,1.761" Height="20" Width="66"/>
+        <Button x:Name="SearchOpened" Content="Search Opened" Click="Search_Opened" HorizontalAlignment="Left" Margin="113,136,0,0" VerticalAlignment="Top" Height="20" Width="85"/>
+        <Button x:Name="ClearSearch" Content="Clear Search" Click="Clear_Search" HorizontalAlignment="Left" Margin="213,136,0,0" VerticalAlignment="Top" Height="20" Width="85"/>
+        <TextBox x:Name="SearchFor" Margin="33,74,26,0" TextWrapping="Wrap" Text="{Binding SearchData.SearchCriteria}" VerticalAlignment="Top" Height="18" Style="{DynamicResource HelperTextSearch}" />
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding SearchResults}"  d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,168,0,11" Grid.RowSpan="2" MouseDoubleClick="Open_Search_Item" Unloaded="DataGrid_Unloaded"/>
+        <Button x:Name="GetDirectory" Content="Directory" Click="Get_Directory" Margin="0,45,26,0" VerticalAlignment="Top" Height="20" HorizontalAlignment="Right" Width="66"/>
+
+
+    </Grid>
+</Window>
